@@ -27,7 +27,7 @@ on:
       - run.sh
       - run.ps1
   schedule:
-    - cron: '30 14 * * 1'  # every Monday, 9:30 AM CDT
+    - cron: "30 14 * * 1" # every Monday, 9:30 AM CDT
 
 env:
   CARGO_TERM_COLOR: always
@@ -36,7 +36,7 @@ jobs:
   build:
     strategy:
       fail-fast: true
-      
+
       matrix:
         include:
           - os: ubuntu-latest
@@ -45,8 +45,8 @@ jobs:
             artifact: true
           - os: macos-13
             target: x86_64-apple-darwin
-        #   - os: macos-latest
-        #     target: aarch64-apple-darwin
+          #   - os: macos-latest
+          #     target: aarch64-apple-darwin
           - os: windows-latest
             target: x86_64-pc-windows-msvc
 
@@ -58,7 +58,7 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.74
+          toolchain: 1.79
           targets: ${{ matrix.target }}
 
       - name: Install Linker Tools
@@ -85,7 +85,7 @@ jobs:
 
       - name: Run tests
         run: cargo test --verbose --target ${{ matrix.target }}
-    
+
       - name: Build
         if: matrix.artifact
         run: cargo build --verbose --target ${{ matrix.target }}
